@@ -1,0 +1,22 @@
+<div>
+	<select class="form-control" ng-options="difficulty as difficulty for difficulty in difficulties" ng-model="difficulty"></select>
+	<div class="mb-3">
+		<button class="btn btn-lg btn-primary" type="button" ng-click="addPlayer()">Add Player</button>
+		<div ng-repeat="player in players">
+	        <label>Name: <input type="text" class="form-control" ng-model="player.name"></label>
+	        <label>Level: <input type="number" min="1" max="20" class="form-control" ng-model="player.level"></label>
+	        <button class="btn btn-lg btn-primary" type="button" ng-click="removePlayer(player)">X</button>
+		</div>
+	</div>
+	<div class="mb-3">
+		<button class="btn btn-lg btn-primary" type="button" ng-click="addMonster()">Add Monster</button>
+		<div ng-repeat="monster in monsters">
+	        <label>Name: <input type="text" class="form-control" ng-model="monster.name"></label>
+	        <label>Challenge Rating: <input type="number" min="0" max="30" class="form-control" ng-model="monster.cr"></label>
+	        <button class="btn btn-lg btn-primary" type="button" ng-click="removeMonster(monster)">X</button>
+		</div>
+	</div>
+	<br />
+	<button class="btn btn-lg btn-primary" type="button" ng-click="calculateTotals()">Calculate</button>
+	{{calculation}}
+</div>
