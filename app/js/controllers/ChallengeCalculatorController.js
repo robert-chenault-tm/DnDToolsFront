@@ -82,7 +82,7 @@ dndApp.controller('ChallengeCalculatorController', function($scope, $http) {
 		
 		if($scope.players.length < 3) {
 			multiIndex++;
-		} else if($scope.players.length > 6) {
+		} else if($scope.players.length > 5) {
 			multiIndex--;
 		}
 		
