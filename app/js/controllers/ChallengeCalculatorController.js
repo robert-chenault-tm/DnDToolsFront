@@ -1,79 +1,85 @@
 dndApp.controller('ChallengeCalculatorController', function($scope, $http, StaticDataService) {
-	$scope.players = [];
-	$scope.monsters = [];
-	$scope.difficulties = ['Easy', 'Medium', 'Hard', 'Deadly'];
-	$scope.difficulty = $scope.difficulties[0];
 	
-	StaticDataService.getEncounterDifficultyData(function(response) {
-		$scope.crExpValues = response.data.crExpValues;
-		$scope.easyThresholds = response.data.easyThresholds;
-		$scope.mediumThresholds = response.data.mediumThresholds;
-		$scope.hardThresholds = response.data.hardThresholds;
-		$scope.deadlyThresholds = response.data.deadlyThresholds;
-		$scope.expMultipliers = response.data.expMultipliers;
-		console.log(response.data);
-	}, function(error) {
-		console.log('Error' - error);
-	});
-	
-	$scope.addPlayer = function() {
-		var obj = {
-				name: '',
-				level: 1
-		}
-		$scope.players.push(obj);
-	}
-	$scope.addMonster = function() {
-		var obj = {
-				name: '',
-				cr: 1
-		}
-		$scope.monsters.push(obj);
-	}
-	
-	$scope.numPlayers = $scope.players.length;
-	$scope.removePlayer = function(element) {
-		$scope.players.splice($scope.players.indexOf(element), 1);
-	}
-	$scope.removeMonster = function(element) {
-		$scope.monsters.splice($scope.monsters.indexOf(element), 1);
-	}
-	$scope.calculateTotals = function() { 
-		$scope.calculation = 'For a challenge of ' + $scope.difficulty + ' your the appropriate encounter experience level is ' + sumCharacterExp() + ' and the encounter experience level with the selected monsters is ' + sumMonsterExp(); 
+	function init() {
+		$scope.players = [];
+		$scope.monsters = [];
+		$scope.defaultPlayerLevel = 1;
+		$scope.defaultMonsterCR = '1';
+		$scope.playerError = false;
+		$scope.monsterError = false;
+		$scope.trivialEncounter = false;
+		$scope.calculatedExp = 0;
+		$scope.partyThreshold = {
+				easy: {val: 0, active: false},
+				medium: {val: 0, active: false},
+				hard: {val: 0, active: false},
+				deadly: {val: 0, active: false}
+		};
+		
+		
+		StaticDataService.getEncounterDifficultyData(function(response) {
+			$scope.crExpValues = response.data.crExpValues;
+			$scope.easyThresholds = response.data.easyThresholds;
+			$scope.mediumThresholds = response.data.mediumThresholds;
+			$scope.hardThresholds = response.data.hardThresholds;
+			$scope.deadlyThresholds = response.data.deadlyThresholds;
+			$scope.expMultipliers = response.data.expMultipliers;
+		}, function(error) {
+			console.log('Error' - error);
+		});
 	}
 	
 	function sumCharacterExp() {
-		var sum = 0;
-		var threshold;
-		switch ($scope.difficulty) {
-			case $scope.difficulties[0]:
-				threshold = $scope.easyThresholds;
-				break;
-			case $scope.difficulties[1]:
-				threshold = $scope.mediumThresholds;
-				break;
-			case $scope.difficulties[2]:
-				threshold = $scope.hardThresholds;
-				break;
-			case $scope.difficulties[3]:
-				threshold = $scope.deadlyThresholds;
-				break;
-		}
+		var easy;
+		var medium;
+		var hard;
+		var deadly;
+		$scope.playerError = false;
+		$scope.partyThreshold = {
+				easy: {val: 0, active: false},
+				medium: {val: 0, active: false},
+				hard: {val: 0, active: false},
+				deadly: {val: 0, active: false}
+		};
+
 		angular.forEach($scope.players, function(value, key) {
-			sum += threshold[value.level];
+			easy = $scope.easyThresholds[value.level];
+			medium = $scope.mediumThresholds[value.level];
+			hard = $scope.hardThresholds[value.level];
+			deadly = $scope.deadlyThresholds[value.level];
+			if(!isNaN(easy) && !isNaN(medium) && !isNaN(hard) && !isNaN(deadly)) {
+				$scope.partyThreshold.easy.val += easy;
+				$scope.partyThreshold.medium.val += medium;
+				$scope.partyThreshold.hard.val += hard;
+				$scope.partyThreshold.deadly.val += deadly;
+			} else {
+				$scope.playerError = true;
+			}
 		});
-		return sum;
 	}
 	
 	function sumMonsterExp() {
+		$scope.partyThreshold.easy.active = false;
+		$scope.partyThreshold.medium.active = false;
+		$scope.partyThreshold.hard.active = false;
+		$scope.partyThreshold.deadly.active = false;
+		$scope.monsterError = false;
+		$scope.trivialEncounter = false;
 		var sum = 0;
+		var current;
 		angular.forEach($scope.monsters, function(value, key) {
-			sum += $scope.crExpValues[value.cr];
+			current = $scope.crExpValues[value.cr];
+			if(!isNaN(current)) {
+				sum += $scope.crExpValues[value.cr];
+			} else {
+				$scope.monsterError = true;
+			}	
 		});
 		var multiIndex;
 		var numMonsters = $scope.monsters.length;
 		if(numMonsters == 0) {
-			return 0;
+			$scope.calculatedExp = sum;
+			return;
 		} else if(numMonsters == 1) {
 			multiIndex = 1;
 		} else if(numMonsters == 2) {
@@ -96,6 +102,63 @@ dndApp.controller('ChallengeCalculatorController', function($scope, $http, Stati
 		
 		sum *= $scope.expMultipliers[multiIndex];
 		
-		return sum;
+		if(sum >= $scope.partyThreshold.deadly.val) {
+			$scope.partyThreshold.deadly.active = true;
+		} else if(sum >= $scope.partyThreshold.hard.val) {
+			$scope.partyThreshold.hard.active = true;
+		} else if(sum >= $scope.partyThreshold.medium.val) {
+			$scope.partyThreshold.medium.active = true;
+		} else if(sum >= $scope.partyThreshold.easy.val) {
+			$scope.partyThreshold.easy.active = true;
+		} else {
+			$scope.trivialEncounter = true;
+		}
+		
+		$scope.calculatedExp = sum;
 	}
+	
+	$scope.addPlayer = function() {
+		var level = $scope.defaultPlayerLevel;
+		if(isNaN(level)) {
+			level = 1;
+		}
+		var obj = {
+				name: '',
+				level: level
+		}
+		$scope.players.push(obj);
+		$scope.calculateTotals();
+	}
+	
+	$scope.addMonster = function() {
+		var fractions = ['1/2', '1/4', '1/8'];
+		var cr = $scope.defaultMonsterCR;
+		if((isNaN(cr) && fractions.indexOf(cr) == -1) || (!isNaN(cr) && (cr > 30 || cr < 0))) {
+			cr = 1;
+		} 
+		var obj = {
+				name: '',
+				cr: cr
+		}
+		$scope.monsters.push(obj);
+		sumMonsterExp();
+	}
+	
+	$scope.removePlayer = function(element) {
+		$scope.players.splice($scope.players.indexOf(element), 1);
+		$scope.calculateTotals();
+	}
+	
+	$scope.removeMonster = function(element) {
+		$scope.monsters.splice($scope.monsters.indexOf(element), 1);
+		sumMonsterExp();
+	}
+	
+	$scope.calculateTotals = function() { 
+		sumCharacterExp();
+		sumMonsterExp(); 
+	}
+	
+	init();
+	
 });

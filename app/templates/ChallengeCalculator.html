@@ -1,22 +1,37 @@
 <div>
-	<select class="form-control" ng-options="difficulty as difficulty for difficulty in difficulties" ng-model="difficulty"></select>
-	<div class="mb-3">
-		<button class="btn btn-lg btn-primary" type="button" ng-click="addPlayer()">Add Player</button>
-		<div ng-repeat="player in players">
-	        <label>Name: <input type="text" class="form-control" ng-model="player.name"></label>
-	        <label>Level: <input type="number" min="1" max="20" class="form-control" ng-model="player.level"></label>
-	        <button class="btn btn-lg btn-primary" type="button" ng-click="removePlayer(player)">X</button>
-		</div>
+	<div class="row w-50 pl-3">
+		<label class="w-25" ng-class="{'bg-secondary': partyThreshold.easy.active}">Easy: {{partyThreshold.easy.val}}</label>
+		<label class="w-25" ng-class="{'bg-success': partyThreshold.medium.active}">Medium: {{partyThreshold.medium.val}}</label>
+		<label class="w-25" ng-class="{'bg-warning': partyThreshold.hard.active}">Hard: {{partyThreshold.hard.val}}</label>
+		<label class="w-25" ng-class="{'bg-danger': partyThreshold.deadly.active}">Deadly: {{partyThreshold.deadly.val}}</label>
 	</div>
-	<div class="mb-3">
-		<button class="btn btn-lg btn-primary" type="button" ng-click="addMonster()">Add Monster</button>
-		<div ng-repeat="monster in monsters">
-	        <label>Name: <input type="text" class="form-control" ng-model="monster.name"></label>
-	        <label>Challenge Rating: <input type="number" min="0" max="30" class="form-control" ng-model="monster.cr"></label>
-	        <button class="btn btn-lg btn-primary" type="button" ng-click="removeMonster(monster)">X</button>
+	<label class="d-block">Modified encounter exp: {{calculatedExp}}</label>
+	<label class="text-danger d-block" ng-show="playerError">One of your player levels is not within the range 1-20. This may result in inaccurate calculations.</label>
+	<label class="text-danger d-block" ng-show="monsterError">One of your monster CRs is invalid. This may result in inaccurate calculations. Valid CRs are 0, 1/8, 1/4, 1/2, and 1-20.</label>
+	<label class="text-primary d-block" ng-show="trivialEncounter">This encounter is considered trivial.</label>
+	<div class="input-group input-group-sm row mb-3 pl-3 w-25">
+		<div class="input-group-prepend">
+			<span class="input-group-text">Add Player of level</span>
 		</div>
+		<input ng-model="defaultPlayerLevel" class="form-control" type="number" min="1" max="20"/>
+		<button class="btn btn-sm btn-primary" type="button" ng-click="addPlayer()">+</button>
+	</div>
+	<div ng-repeat="player in players">
+        <label>Name: <input type="text" class="form-control" ng-model="player.name"></label>
+        <label>Level: <input type="number" class="form-control" ng-model="player.level" min="1" max="20" ng-change="calculateTotals()" /></label>
+        <button class="btn btn-lg btn-primary" type="button" ng-click="removePlayer(player)">X</button>
+	</div>
+	<div class="input-group input-group-sm row mb-3 pl-3 w-25">
+		<div class="input-group-prepend">
+			<span class="input-group-text">Add Monster of CR</span>
+		</div>
+		<input class="form-control" type="text" maxlength="3" ng-model="defaultMonsterCR" />
+		<button class="btn btn-sm btn-primary" type="button" ng-click="addMonster()">+</button>
+	</div>
+	<div ng-repeat="monster in monsters">
+        <label>Name: <input type="text" class="form-control" ng-model="monster.name"></label>
+        <label>Challenge Rating: <input type="text" maxlength="3" class="form-control" ng-model="monster.cr" ng-change="calculateTotals()" /></label>
+        <button class="btn btn-lg btn-primary" type="button" ng-click="removeMonster(monster)">X</button>
 	</div>
 	<br />
-	<button class="btn btn-lg btn-primary" type="button" ng-click="calculateTotals()">Calculate</button>
-	{{calculation}}
 </div>
