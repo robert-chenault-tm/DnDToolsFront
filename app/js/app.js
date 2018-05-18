@@ -4,13 +4,25 @@ var dndApp = angular.module('dndApp', ['ngResource', 'ngRoute', 'ngCookies'])
 			templateUrl: 'templates/Login.html',
 			controller: 'LoginController'
 		});
-		$routeProvider.when('/newUser', {
-			templateUrl: 'templates/NewUser.html',
-			controller: 'NewUserController'
-		});
 		$routeProvider.when('/challengeCalc', {
 			templateUrl: 'templates/ChallengeCalculator.html',
 			controller: 'ChallengeCalculatorController'
+		});
+		$routeProvider.when('/item/:itemId', {
+			templateUrl: 'templates/Item.html',
+			controller: 'ItemController'
+		});
+		$routeProvider.when('/items', {
+			templateUrl: 'templates/ItemList.html',
+			controller: 'ItemListController'
+		});
+		$routeProvider.when('/newItem', {
+			templateUrl: 'templates/NewUser.html',
+			controller: 'NewUserController'
+		});
+		$routeProvider.when('/newUser', {
+			templateUrl: 'templates/NewUser.html',
+			controller: 'NewUserController'
 		});
 		$routeProvider.otherwise({redirectTo: '/challengeCalc'});
 		$locationProvider.html5Mode(true);

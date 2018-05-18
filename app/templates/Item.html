@@ -1,0 +1,27 @@
+<div>
+	<h1>{{item.name}}</h1>
+	<label class="mr-3">Type: {{type}}</label>
+	<label class="mr-3">Cost: {{item.valueInGP}} gp</label>
+	<label class="mr-3">Weight: {{item.weightInlbs}} lbs</label>
+	<label class="d-block">{{item.description}}</label>
+	<div ng-show="item.weaponMods != null">
+		<label class="d-block">Weapon type: {{item.weaponMods.weaponType}}</label>
+		<div ng-show="item.weaponMods.reach != 0">
+			<h4>Melee attack</h4>
+			<label class="d-block">Range: {{item.weaponMods.reach}}</label>
+			<label>Deals the following damage on hit:</label>
+			<table class="table w-25">
+				<tbody>
+					<tr ng-repeat="die in item.weaponMods.damageDice">
+						<td>{{die.diceNumber}}</td>
+						<td>{{die.diceType}}</td>
+						<td>{{die.damageType}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div ng-show="item.armorMods != null">
+		<label></label>
+	</div>
+</div>
