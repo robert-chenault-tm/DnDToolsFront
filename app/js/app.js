@@ -36,5 +36,5 @@ var dndApp = angular.module('dndApp', ['ngResource', 'ngRoute', 'ngCookies'])
 			if($location.url() !== '/' && $location.url() !== '/newUser' && !$rootScope.globals.currentUser) {
 				$location.url('/');
 			}
-		})
+		});
 	});

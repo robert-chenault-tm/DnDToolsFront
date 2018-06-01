@@ -4,8 +4,13 @@ dndApp.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope', 
 	service.Login = function(username, password, successCB, failureCB) {
 		$http({
 			method: 'POST',
-			url: 'http://localhost:8080/DnDToolsBack/authenticate/' + username + '/' + password
+			url: 'http://localhost:8080/DnDToolsBack/login',
+			data: {
+				username: username,
+				password: password
+			}
 		}).then(function(response) {
+			console.log(response);
 			if(response != null && response.status == 200) {
 				successCB(response);
 			} else {
