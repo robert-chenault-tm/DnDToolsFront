@@ -5,6 +5,14 @@ dndApp.controller('NavbarController', function($scope, $location, Authentication
 		$location.url('/');
 	}
 	
+	$scope.goToCharacters = function() {
+		$location.url('/characters');
+	}
+	
+	$scope.goToNewCharacter = function() {
+		$location.url('/newCharacter');
+	}
+	
 	$scope.goToItems = function() {
 		$location.url('/items');
 	}

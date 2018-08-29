@@ -8,6 +8,13 @@
       <div class="navbar-collapse collapse" id="navbarsExample06" style="">
 	      <ul class="navbar-nav mr-auto">
 	       <li class="nav-item dropdown">
+	       	<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Characters</a>
+	           <div class="dropdown-menu" aria-labelledby="dropdown05">
+	             <button class="dropdown-item" ng-click="goToCharacters()">View Characters</button>
+	             <button class="dropdown-item" ng-click="goToNewCharacter()">Create Character</button>
+	           </div>
+	       </li>
+	       <li class="nav-item dropdown">
 	       	<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Items</a>
 	           <div class="dropdown-menu" aria-labelledby="dropdown06">
 	             <button class="dropdown-item" ng-click="goToItems()">Search Items</button>
