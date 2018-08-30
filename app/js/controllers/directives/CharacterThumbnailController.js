@@ -1,0 +1,3 @@
+dndApp.controller('CharacterThumbnailController', function() {
+	
+});
