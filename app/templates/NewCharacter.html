@@ -1,0 +1,42 @@
+<div>
+	<h1>New Character</h1>
+	<br />
+	<form name="characterForm">
+		<fieldset>
+			<label for="name">Name: </label>
+			<input id="name" type="text" required ng-model="character.name" placeholder="Name..."></input>
+			<br />
+			<label for="experience">Experience: </label>
+			<input id="experience" type="number" min="0" max="355000" step="1" required ng-model="character.experience" placeholder="Experience..."></input>
+			<br />
+			<label for="level">Level: </label>
+			<input id="level" type="number" min="0" max="20" step="1" required ng-model="character.level" placeholder="Level..."></input>
+			<br />
+			<label for="strength">Strength: </label>
+			<input id="strength" type="number" min="0" max="20" step="1" required ng-model="character.strength" placeholder="Strength..."></input>
+			<br />
+			<label for="dexterity">Dexterity: </label>
+			<input id="dexterity" type="number" min="0" max="20" step="1" required ng-model="character.dexterity" placeholder="Dexterity..."></input>
+			<br />
+			<label for="intelligence">Intelligence: </label>
+			<input id="intelligence" type="number" min="0" max="20" step="1" required ng-model="character.intelligence" placeholder="Intelligence..."></input>
+			<br />
+			<label for="constitution">Constitution: </label>
+			<input id="constitution" type="number" min="0" max="20" step="1" required ng-model="character.constitution" placeholder="Constitution..."></input>
+			<br />
+			<label for="wisdom">Wisdom: </label>
+			<input id="wisdom" type="number" min="0" max="20" step="1" required ng-model="character.wisdom" placeholder="Wisdom..."></input>
+			<br />
+			<label for="charisma">Charisma: </label>
+			<input id="charisma" type="number" min="0" max="20" step="1" required ng-model="character.charisma" placeholder="Charisma..."></input>
+			<br />
+			<label for="characterRace">Race: </label>
+			<select id="characterRace" ng-options="characterRace.race_name for characterRace in races" ng-model="newCharacterRace" required></select>
+			<br />
+			<label for="characterClass">Class: </label>
+			<select id="characterClass" ng-options="characterClass.class_name for characterClass in classes" ng-model="newCharacterClass" required></select>
+		</fieldset>
+		<button class="btn btn-default" ng-click="createCharacter(character, characterForm)" ng-disabled="sendingToDB">Create</button>
+		<button class="btn btn-default" ng-click="cancelCreate(character)" ng-disabled="sendingToDB">Cancel</button>
+	</form>
+</div>
