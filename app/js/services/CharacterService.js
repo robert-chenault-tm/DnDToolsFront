@@ -27,7 +27,8 @@ dndApp.factory('CharacterService', ['$http', function($http) {
 	service.createCharacter = function(character, successCB, failureCB) {
 		$http({
 			method: 'POST',
-			url: 'http://localhost:8080/DnDToolsBack/character'
+			url: 'http://localhost:8080/DnDToolsBack/character',
+			data: character
 		}).then(function(response) {
 			successCB(response);
 		}, function(error) {

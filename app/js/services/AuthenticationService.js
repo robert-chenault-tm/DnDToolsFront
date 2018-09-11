@@ -10,7 +10,6 @@ dndApp.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope', 
 				password: password
 			}
 		}).then(function(response) {
-			console.log(response);
 			if(response != null && response.status == 200) {
 				successCB(response);
 			} else {
