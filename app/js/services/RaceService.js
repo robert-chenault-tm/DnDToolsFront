@@ -1,11 +1,10 @@
-dndApp.factory('CharacterService', ['$http', function($http) {
-	
+dndApp.factory('RaceService', ['$http', function($http) {
 	var service = {};
 	
-	service.getCharacters = function(username, successCB, failureCB) {
+	service.getRaces = function(username, successCB, failureCB) {
 		$http({
 			method: 'GET',
-			url: 'http://localhost:8080/DnDToolsBack/characters/' + username
+			url: 'http://localhost:8080/DnDToolsBack/races/' + username
 		}).then(function(response) {
 			successCB(response);
 		}, function(error) {
@@ -13,10 +12,10 @@ dndApp.factory('CharacterService', ['$http', function($http) {
 		});
 	}
 	
-	service.getCharacter = function(id, successCB, failureCB) {
+	service.getRace = function(id, successCB, failureCB) {
 		$http({
 			method: 'GET',
-			url: 'http://localhost:8080/DnDToolsBack/character/' + id
+			url: 'http://localhost:8080/DnDToolsBack/race/' + id
 		}).then(function(response) {
 			successCB(response);
 		}, function(error) {
@@ -24,10 +23,10 @@ dndApp.factory('CharacterService', ['$http', function($http) {
 		});
 	}
 	
-	service.createCharacter = function(character, successCB, failureCB) {
+	service.createRace = function(race, successCB, failureCB) {
 		$http({
 			method: 'POST',
-			url: 'http://localhost:8080/DnDToolsBack/character'
+			url: 'http://localhost:8080/DnDToolsBack/race'
 		}).then(function(response) {
 			successCB(response);
 		}, function(error) {
@@ -36,5 +35,4 @@ dndApp.factory('CharacterService', ['$http', function($http) {
 	}
 	
 	return service;
-	
 }]);

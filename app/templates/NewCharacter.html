@@ -31,10 +31,10 @@
 			<input id="charisma" type="number" min="0" max="20" step="1" required ng-model="character.charisma" placeholder="Charisma..."></input>
 			<br />
 			<label for="characterRace">Race: </label>
-			<select id="characterRace" ng-options="characterRace.race_name for characterRace in races" ng-model="newCharacterRace" required></select>
+			<select id="characterRace" ng-options="characterRace.name for characterRace in races" ng-model="newCharacterRace" required></select>
 			<br />
 			<label for="characterClass">Class: </label>
-			<select id="characterClass" ng-options="characterClass.class_name for characterClass in classes" ng-model="newCharacterClass" required></select>
+			<select id="characterClass" ng-options="characterClass.name for characterClass in classes" ng-model="newCharacterClass" required></select>
 		</fieldset>
 		<button class="btn btn-default" ng-click="createCharacter(character, characterForm)" ng-disabled="sendingToDB">Create</button>
 		<button class="btn btn-default" ng-click="cancelCreate(character)" ng-disabled="sendingToDB">Cancel</button>

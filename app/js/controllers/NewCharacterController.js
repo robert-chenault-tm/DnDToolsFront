@@ -1,37 +1,19 @@
-dndApp.controller('NewCharacterController', function($scope) {
+dndApp.controller('NewCharacterController', function($scope, CharacterService, CharacterClassService, RaceService) {
 	$scope.character = {};
-	var dummyClasses = [
-		{
-			class_id: '1',
-			class_name: 'Bard'
-		},
-		{
-			class_id: '2',
-			class_name: 'Wizard'
-		},
-		{
-			class_id: '3',
-			class_name: 'Ranger'
-		}
-	];
-	var dummyRaces = [
-		{
-			race_id: '1',
-			race_name: 'Human'
-		},
-		{
-			race_id: '2',
-			race_name: 'Elf'
-		},
-		{
-			race_id: '3',
-			race_name: 'Dwarf'
-		},
-		{
-			race_id: '4',
-			race_name: 'Dragonborn'
-		},
-	];
-	$scope.classes = dummyClasses;
-	$scope.races = dummyRaces;
+	
+	CharacterClassService.getCharacterClasses($scope.globals.currentUser.username, function(response) {
+		$scope.classes = response.data;
+		$scope.newCharacterClass = $scope.classes[0];
+	}, function(error) {
+		$scope.classes = [];
+		console.log(error);
+	});
+	
+	RaceService.getRaces($scope.globals.currentUser.username, function(response) {
+		$scope.races = response.data;
+		$scope.newCharacterRace = $scope.races[0];
+	}, function(error) {
+		$scope.races = [];
+		console.log(error);
+	});
 });
