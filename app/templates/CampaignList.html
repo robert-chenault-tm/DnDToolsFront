@@ -1,0 +1,11 @@
+<div>
+	<table class="table table-striped">
+		<tbody>
+			<tr ng-repeat="campaign in campaigns | orderBy: 'name'">
+				<td>
+					<campaign-thumbnail campaign="campaign" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

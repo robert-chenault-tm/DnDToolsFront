@@ -4,6 +4,10 @@ var dndApp = angular.module('dndApp', ['ngResource', 'ngRoute', 'ngCookies'])
 			templateUrl: 'templates/Login.html',
 			controller: 'LoginController'
 		});
+		$routeProvider.when('/campaigns', {
+			templateUrl: 'templates/CampaignList.html',
+			controller: 'CampaignListController'
+		});
 		$routeProvider.when('/character/:characterId', {
 			templateUrl: 'templates/Character.html',
 			controller: 'CharacterController'

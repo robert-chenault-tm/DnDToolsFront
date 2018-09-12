@@ -24,4 +24,12 @@ dndApp.controller('NavbarController', function($scope, $location, Authentication
 	$scope.goToCRC = function() {
 		$location.url('/challengeCalc');
 	}
+	
+	$scope.goToCampaigns = function() {
+		$location.url('/campaigns');
+	}
+	
+	$scope.goToNewCampaign = function() {
+		$location.url('/newCampaign');
+	}
 });
