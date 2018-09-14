@@ -37,4 +37,9 @@ dndApp.controller('NewCharacterController', function($scope, $location, Characte
 			});
 		}
 	}
+	
+	$scope.cancelCreate = function() {
+		$location.url('/characters');
+	}
+	
 });

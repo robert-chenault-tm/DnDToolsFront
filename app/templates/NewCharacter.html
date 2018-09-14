@@ -37,6 +37,6 @@
 			<select id="characterClass" ng-options="characterClass.name for characterClass in classes" ng-model="newCharacterClass" required></select>
 		</fieldset>
 		<button class="btn btn-default" ng-click="createCharacter(characterForm)" ng-disabled="sendingToDB">Create</button>
-		<button class="btn btn-default" ng-click="cancelCreate(character)" ng-disabled="sendingToDB">Cancel</button>
+		<button class="btn btn-default" type="button" ng-click="cancelCreate()" ng-disabled="sendingToDB">Cancel</button>
 	</form>
 </div>

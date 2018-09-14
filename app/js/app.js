@@ -28,13 +28,17 @@ var dndApp = angular.module('dndApp', ['ngResource', 'ngRoute', 'ngCookies'])
 			templateUrl: 'templates/ItemList.html',
 			controller: 'ItemListController'
 		});
-		$routeProvider.when('/newItem', {
-			templateUrl: 'templates/NewUser.html',
-			controller: 'NewUserController'
+		$routeProvider.when('/newCampaign', {
+			templateUrl: 'templates/NewCampaign.html',
+			controller: 'NewCampaignController'
 		});
 		$routeProvider.when('/newCharacter', {
 			templateUrl: 'templates/NewCharacter.html',
 			controller: 'NewCharacterController'
+		});
+		$routeProvider.when('/newItem', {
+			templateUrl: 'templates/NewUser.html',
+			controller: 'NewUserController'
 		});
 		$routeProvider.when('/newUser', {
 			templateUrl: 'templates/NewUser.html',

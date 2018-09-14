@@ -1,0 +1,12 @@
+<div>
+	<h1>New Campaign</h1>
+	<br />
+	<form name="campaignForm">
+		<fieldset>
+			<label for="name">Name: </label>
+			<input id="name" type="text" required ng-model="campaign.name" placeholder="Name..."></input>
+		</fieldset>
+		<button class="btn btn-default" ng-click="createCampaign(campaignForm)" ng-disabled="sendingToDB">Create</button>
+		<button class="btn btn-default" type="button" ng-click="cancelCreate()" ng-disabled="sendingToDB">Cancel</button>
+	</form>
+</div>
