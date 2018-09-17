@@ -12,6 +12,17 @@ dndApp.factory('CampaignService', ['$http', function($http) {
 		});
 	}
 	
+	service.getCampaign = function(id, successCB, failureCB) {
+		$http({
+			method: 'GET',
+			url: 'http://localhost:8080/DnDToolsBack/campaign/' + id
+		}).then(function(response){
+			successCB(response)
+		}, function(error) {
+			failureCB(error);
+		});
+	}
+	
 	service.createCampaign = function(campaign, successCB, failureCB) {
 		$http({
 			method: 'POST',

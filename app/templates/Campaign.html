@@ -1,0 +1,28 @@
+<div>
+	<h1>{{campaign.name}}</h1>
+	<div ng-hide="editingCharacters">
+		<table class="table table-striped">
+			<tbody>
+				<tr ng-repeat="character in campaign.characters | orderBy: 'name'">
+					<td>
+						<character-thumbnail character="character" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button class="btn btn-default" type="button" ng-click="showAvailableCharacters()">Edit Characters</button>
+	</div>
+	<div ng-show="editingCharacters">
+		<table class="table table-striped">
+			<tbody>
+				<tr ng-repeat="character in characters | orderBy: 'name'">
+					<td>
+						<character-thumbnail character="character" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button class="btn btn-default" type="button" ng-click="cancelEdit()">Cancel</button>
+	</div>
+
+</div>
