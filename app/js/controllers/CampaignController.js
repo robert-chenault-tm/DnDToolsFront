@@ -1,5 +1,6 @@
 dndApp.controller('CampaignController', function($scope, $routeParams, CampaignService, CharacterService) {
-	CampaignService.getCampaign($routeParams.campaignId, function(response) {
+	CampaignService.getFullCampaign($routeParams.campaignId, function(response) {
+		console.log(response.data);
 		$scope.campaign = response.data;
 	}, function(error) {
 		console.log(error);
