@@ -18,11 +18,14 @@
 				<tr ng-repeat="character in characters | orderBy: 'name'">
 					<td>
 						<character-thumbnail character="character" />
+						<button ng-click="removeCharacter(character)" ng-show="characterInCampaign(character)">X</button>
+						<button ng-click="addCharacter(character)" ng-hide="characterInCampaign(character)">+</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<button class="btn btn-default" type="button" ng-click="cancelEdit()">Cancel</button>
+		<button class="btn btn-default" type="button" ng-click="submitEdit()">Save</button>
 	</div>
 
 </div>

@@ -35,5 +35,17 @@ dndApp.factory('CampaignService', ['$http', function($http) {
 		});
 	}
 	
+	service.editCampaign = function(campaign, successCB, failureCB) {
+		$http({
+			method: 'PUT',
+			url: 'http://localhost:8080/DnDToolsBack/campaign',
+			data: campaign
+		}).then(function(response) {
+			successCB(response);
+		}, function(error) {
+			failureCB(error);
+		});
+	}
+	
 	return service;
 }]);
