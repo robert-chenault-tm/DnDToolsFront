@@ -22,6 +22,9 @@
 		</div>
 	</div>
 	<div ng-show="item.armorMods != null">
-		<label></label>
+		<label class="d-block">Armor type: {{item.armorMods.armorType}}</label>
+		<label class="d-block">Base AC: {{item.armorMods.baseAC}}</label>
+		<label class="d-block" ng-show="item.armorMods.strengthReq != 0">Required Strength: {{item.armorMods.strengthReq}}</label>
+		<label class="d-block" ng-show="item.armorMods.stealthDisadvantage">Disadvantage on Stealth Rolls</label>
 	</div>
 </div>
