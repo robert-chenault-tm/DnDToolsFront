@@ -3,6 +3,9 @@
 	<br />
 	<form name="itemForm">
 		<fieldset>
+			<input type="checkbox" ng-change="toggleWeaponSection()" ng-model="isWeapon">Weapon</input>
+			<input type="checkbox" ng-change="toggleArmorSection()" ng-model="isArmor">Armor</input>
+			<br />
 			<label for="name">Name: </label>
 			<input id="name" type="text" required ng-model="item.name" placeholder="Name..."></input>
 			<br />
@@ -17,6 +20,17 @@
 			<br />
 			<label for="weightInlbs">Weight: </label>
 			<input id="weightInlbs" type="number" min="0" step="0.01" required ng-model="item.weightInlbs" placeholder="Weight..."></input> lbs
+			<div ng-show="isArmor">
+				<select ng-options="armorType for armorType in armorTypes" ng-model="item.armorMods.armorType" ng-required="isArmor"></select>
+				<br />
+				<label for="baseAC">Base AC: </label>
+				<input id="baseAC" type="number" min="0" step="1" ng-required="isArmor" ng-model="item.armorMods.baseAC" placeholder="AC..."></input>
+				<br />
+				<label for="strengthReq">Required Strength: </label>
+				<input id="strengthReq" type="number" min="0" step="1" max="20" ng-required="isArmor" ng-model="item.armorMods.strengthReq" placeholder="Required Strength..."></input>
+				<br />
+				<input type="checkbox" ng-model="item.armorMods.stealthDisadvantage">Stealth Disadvantage</input>
+			</div>
 		</fieldset>
 		<button class="btn btn-default" ng-click="createItem(itemForm)" ng-disabled="sendingToDB">Create</button>
 		<button class="btn btn-default" type="button" ng-click="cancelCreate()" ng-disabled="sendingToDB">Cancel</button>
