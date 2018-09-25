@@ -41,8 +41,8 @@ var dndApp = angular.module('dndApp', ['ngResource', 'ngRoute', 'ngCookies'])
 			controller: 'NewCharacterController'
 		});
 		$routeProvider.when('/newItem', {
-			templateUrl: 'templates/NewUser.html',
-			controller: 'NewUserController'
+			templateUrl: 'templates/NewItem.html',
+			controller: 'NewItemController'
 		});
 		$routeProvider.when('/newUser', {
 			templateUrl: 'templates/NewUser.html',

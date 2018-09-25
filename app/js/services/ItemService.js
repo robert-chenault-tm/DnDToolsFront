@@ -36,5 +36,17 @@ dndApp.factory('ItemService', ['$http', function($http) {
 		});
 	}
 	
+	service.createItem = function(item, successCB, failureCB) {
+		$http({
+			method: "POST",
+			url: "http://localhost:8080/DnDToolsBack/item",
+			data: item
+		}).then(function(response) {
+			successCB(response);
+		}, function(error) {
+			failureCB(error);
+		})
+	}
+	
 	return service;
 }]);
