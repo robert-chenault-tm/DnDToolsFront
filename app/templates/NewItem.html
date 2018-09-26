@@ -31,6 +31,31 @@
 				<br />
 				<input type="checkbox" ng-model="item.armorMods.stealthDisadvantage">Stealth Disadvantage</input>
 			</div>
+			<div ng-show="isWeapon">
+				<label for="weaponType">Weapon Type: </label>
+				<input id="weaponType" type="text" ng-required="isWeapon" ng-model="item.weaponMods.weaponType" placeholder="Weapon Type..."></input>
+				<br />
+				<label for="reach">Reach: </label>
+				<input id="reach" type="number" min="0" step="1" ng-required="isWeapon" ng-model="item.weaponMods.reach" placeholder="Reach..."></input>
+				<br />
+				<label for="shortRange">Short Range: </label>
+				<input id="shortRange" type="number" min="0" step="1" ng-required="isWeapon" ng-model="item.weaponMods.shortRange" placeholder="Short Range..."></input>
+				<br />
+				<label for="longRange">Long Range: </label>
+				<input id="longRange" type="number" min="0" step="1" ng-required="isWeapon" ng-model="item.weaponMods.longRange" placeholder="Long Range..."></input>
+				<br />
+				<input type="checkbox" ng-model="item.weaponMods.simple">Simple Weapon</input>
+				<br />
+				<input type="checkbox" ng-model="item.weaponMods.oneHanded">One Handed</input>
+				<br />
+				<button type="button" ng-click="addDamageDie()">Add Damage</button>
+				<div ng-repeat="die in item.weaponMods.damageDice">
+					<input type="number" min="1" step="1" ng-model="die.diceNumber" placeholder="#" ng-required="isWeapon"></input>
+					<select ng-options="diceType for diceType in diceTypes" ng-model="die.diceType" ng-required="isWeapon"></select>
+					<select ng-options="damageType for damageType in damageTypes" ng-model="die.damageType" ng-required="isWeapon"></select>
+					<button type="button" ng-click="removeDie(die)">X</button>
+				</div>
+			</div>
 		</fieldset>
 		<button class="btn btn-default" ng-click="createItem(itemForm)" ng-disabled="sendingToDB">Create</button>
 		<button class="btn btn-default" type="button" ng-click="cancelCreate()" ng-disabled="sendingToDB">Cancel</button>

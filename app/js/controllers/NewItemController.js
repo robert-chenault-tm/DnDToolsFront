@@ -6,6 +6,8 @@ dndApp.controller('NewItemController', function($scope, $location, ItemService) 
 	$scope.item.weaponMods = null;
 	$scope.item.armorMods = null;
 	$scope.armorTypes = ['Light', 'Medium', 'Heavy', 'Shield'];
+	$scope.diceTypes = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20'];
+	$scope.damageTypes = ['Acid', 'Bludgeoning', 'Cold', 'Fire', 'Force', 'Lightning', 'Necrotic', 'Piercing', 'Poison', 'Psychic', 'Radiant', 'Slashing', 'Thunder'];
 	
 	$scope.createItem = function(itemForm) {
 		if(itemForm.$valid) {
@@ -27,18 +29,38 @@ dndApp.controller('NewItemController', function($scope, $location, ItemService) 
 	}
 	
 	$scope.toggleWeaponSection = function() {
-		
+		if($scope.isWeapon) {
+			$scope.isArmor = false;
+			$scope.item.weaponMods = {};
+			$scope.item.weaponMods.simple = false;
+			$scope.item.weaponMods.oneHanded = false;
+			$scope.item.weaponMods.damageDice = [];
+		} else {
+			$scope.item.weaponMods = null;
+		}
 	}
 	
 	$scope.toggleArmorSection = function() {
 		if($scope.isArmor) {
-			console.log("true");
+			$scope.isWeapon = false;
 			$scope.item.armorMods = {};
 			$scope.item.armorMods.armorType = $scope.armorTypes[0];
 			$scope.item.armorMods.stealthDisadvantage = false;
 		} else {
-			console.log("false");
 			$scope.item.armorMods = null;
 		}
+	}
+	
+	$scope.addDamageDie = function() {
+		var die = {
+				diceNumber: 1,
+				diceType: $scope.diceTypes[0],
+				damageType: $scope.damageTypes[0]
+		}
+		$scope.item.weaponMods.damageDice.push(die);
+	}
+	
+	$scope.removeDie = function(die) {
+		$scope.item.weaponMods.damageDice.splice($scope.item.weaponMods.damageDice.indexOf(die), 1);
 	}
 });
